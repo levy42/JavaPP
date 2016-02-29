@@ -1,11 +1,13 @@
 package lab1;
 
+import common.Box;
+
 import java.util.ArrayList;
 
 /**
  * Created by vitaliy on 2/16/16.
  */
-public class ArrayBuffer {
+public class ArrayBuffer implements Box{
     private ArrayList<String>buffer;
     private int size;
     private int pointer = 0;

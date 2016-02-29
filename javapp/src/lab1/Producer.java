@@ -1,17 +1,20 @@
 package lab1;
 
 import java.util.Random;
+import java.util.concurrent.Executor;
 
 /**
  * Created by vitaliy on 2/16/16.
  */
 public class Producer {
-    private Thread thread;
-    public Producer(final ArrayBuffer buffer, final int interval) {
-        this.thread = new Thread(new Runnable() {
+    private Runnable task;
+    private int count;
+    public Producer(final ArrayBuffer buffer, final int interval, int cycleCount) {
+        this.count = cycleCount;
+        this.task = new Runnable() {
             @Override
             public void run() {
-                while (!thread.isInterrupted()) {
+                while (cycleCount > 0) {
                     buffer.put(generate());
                     try {
                         Thread.sleep(interval);
@@ -19,23 +22,16 @@ public class Producer {
                         e.printStackTrace();
                     }
                 }
+                count--;
             }
-        });
+        };
     }
 
-    public void start(){
-        this.thread.start();
+    public void start(Executor executor){
+        executor.execute(task);
     }
-
-    public synchronized void stop(){
-        if(this.thread.isAlive())
-            this.thread.interrupt();
-    }
-
-//    generating random string from above
-    String[] strings = {"Hello", "Bonjour", "Salamaleyku", "Hi", "Kisimotoyava"};
 
     public String generate(){
-        return this.strings[new Random().nextInt(5)];
+        return String.valueOf(new Random().nextInt(5));
     }
 }
