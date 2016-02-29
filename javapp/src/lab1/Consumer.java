@@ -11,15 +11,17 @@ public class Consumer {
     private Runnable task;
     private StringBuilder text;
     private int count;
+    private String name;
 
-    public Consumer(final ArrayBuffer buffer, final int interval, final PrintStream stream, int wordsCount) {
+    public Consumer(final ArrayBuffer buffer,String name, final int interval, final PrintStream stream, int wordsCount) {
         this.count = wordsCount;
+        this.name = name;
         text = new StringBuilder();
         this.task = new Runnable() {
             @Override
             public void run() {
                 while (count > 0) {
-                    stream.println(consume(buffer));
+                    consume(buffer);
                     try {
                         Thread.sleep(interval);
                     } catch (InterruptedException e) {
@@ -38,6 +40,7 @@ public class Consumer {
 
     public String consume(ArrayBuffer buffer) {
         String string = buffer.get() + "\n";
+        System.out.println("consumer " + name + " got value " + string);
         this.text.append(string);
         return string;
     }

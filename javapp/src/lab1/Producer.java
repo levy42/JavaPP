@@ -9,7 +9,9 @@ import java.util.concurrent.Executor;
 public class Producer {
     private Runnable task;
     private int count;
-    public Producer(final ArrayBuffer buffer, final int interval, int cycleCount) {
+    private String name;
+    public Producer(final ArrayBuffer buffer,String name, final int interval, int cycleCount) {
+        this.name = name;
         this.count = cycleCount;
         this.task = new Runnable() {
             @Override
@@ -32,6 +34,7 @@ public class Producer {
     }
 
     public String generate(){
+        System.out.println(this.name + " genarating new value");
         return String.valueOf(new Random().nextInt(5));
     }
 }
