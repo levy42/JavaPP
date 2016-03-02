@@ -1,12 +1,8 @@
-package lab1;
+package lab1_2;
 
 import java.io.PrintStream;
-import java.io.StreamCorruptedException;
 import java.util.concurrent.Executor;
 
-/**
- * Created by vitaliy on 2/16/16.
- */
 public class Consumer {
     private Runnable task;
     private StringBuilder text;

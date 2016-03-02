@@ -1,12 +1,7 @@
-package lab1;
+package lab1_2;
 
 import common.Box;
 
-import java.util.ArrayList;
-
-/**
- * Created by vitaliy on 2/16/16.
- */
 public class ArrayBuffer implements Box{
     private String[] buffer;
     private int size;
@@ -24,9 +19,9 @@ public class ArrayBuffer implements Box{
             } catch (InterruptedException e) {
             }
         }
-        notifyAll();
         pointer++;
         buffer[pointer] = str;
+        notify();
     }
 
     public synchronized String get(){
@@ -36,7 +31,7 @@ public class ArrayBuffer implements Box{
             } catch (InterruptedException e) {
             }
         }
-        notifyAll();
+        notify();
         String result = buffer[pointer];
         StringBuilder listString = new StringBuilder("buffer [");
         for( int i = 0; i <= pointer; i++){

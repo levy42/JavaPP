@@ -1,11 +1,8 @@
-package lab1;
+package lab1_2;
 
 import java.util.Random;
 import java.util.concurrent.Executor;
 
-/**
- * Created by vitaliy on 2/16/16.
- */
 public class Producer {
     private Runnable task;
     private int count;
@@ -30,7 +27,13 @@ public class Producer {
     }
 
     public void start(Executor executor){
+        try {
+            Thread.sleep(new Random().nextInt(1000));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         executor.execute(task);
+        System.out.println(this.name + " started");
     }
 
     public String generate(){
